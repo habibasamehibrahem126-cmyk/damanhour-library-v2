@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مكتبة هندسة دمنهور</title>
+<meta name="theme-color" content="#12141c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مواد الهندسة">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="logo-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Lalezar&display=swap" rel="stylesheet">
+<script>try{var d=localStorage.getItem('em_dark');if(d==='1'||(d===null&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+:root{--bg:#eceef2;--card:#fff;--ink:#12141c;--muted:#5d6475;--line:#d5d9e2;--soft:#e2e5ec;--accent:#12141c;--on:#fff;--ok:#12a150}
+.dark{--bg:#0e1017;--card:#171a24;--ink:#f1f3f9;--muted:#9aa2b8;--line:#2a2f3f;--soft:#222636;--accent:#f1f3f9;--on:#12141c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6;padding-bottom:env(safe-area-inset-bottom,0px)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select,textarea{font:inherit;color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.disp{font-family:Lalezar,"IBM Plex Sans Arabic",sans-serif;font-weight:400;line-height:1.15}
+header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:5px solid var(--accent);padding-top:env(safe-area-inset-top,0px);transition:border-color .35s}
+.bar{max-width:980px;margin:auto;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.logo{width:44px;height:44px;border-radius:50%;flex:none;display:block;object-fit:cover}
+.ttl{flex:1;min-width:0;font-size:1.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--soft);flex:none}
+nav.tabs{max-width:980px;margin:auto;display:flex;gap:6px;padding:0 14px 10px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs a{flex:none;padding:6px 14px;border-radius:8px;font-size:.88rem;font-weight:500;color:var(--muted)}
+nav.tabs a.on{background:var(--ink);color:var(--bg)}
+main{max-width:980px;margin:auto;padding:18px 14px 50px}
+.search{margin-bottom:18px}
+.search .r{display:flex;gap:8px}
+.search input[type=search]{flex:1;min-width:0;padding:13px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--card)}
+.btn{padding:10px 16px;border-radius:10px;background:var(--soft);font-weight:600;font-size:.88rem}
+.btn.pri{background:var(--ink);color:var(--bg)}
+.btn.del{color:#e11d48}
+.filters{display:none;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:8px}
+.filters.open{display:grid}
+select,.inp{padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);width:100%}
+.hint{color:var(--muted);font-size:.82rem;margin-top:8px}
+.res{margin-top:10px;display:grid;gap:6px}
+.hero2{padding:14px 2px 22px}
+.hero2 h1{font-size:clamp(2.6rem,9vw,4.4rem)}
+.hero2 p{color:var(--muted);margin-top:10px;max-width:34ch}
+.blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.blk{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:170px;padding:18px;border-radius:12px;background:var(--c);color:var(--o);transition:transform .15s}
+.blk:hover{transform:translateY(-3px)}
+.blk .wm{position:absolute;top:-14px;left:10px;font-family:Lalezar,sans-serif;font-size:8.5rem;line-height:1;opacity:.17;direction:ltr}
+.blk b{font-family:Lalezar,sans-serif;font-weight:400;font-size:1.9rem;line-height:1.1;position:relative}
+.blk small{position:relative;opacity:.85;font-size:.85rem;margin-top:4px}
+.ban{background:var(--accent);color:var(--on);border-radius:12px;padding:24px 20px;margin-bottom:16px;transition:background .35s}
+.ban h1{font-size:clamp(2rem,7vw,3.2rem)}
+.ban p{opacity:.85;margin-top:4px;font-size:.92rem}
+.stats{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:.88rem;align-items:center}
+.ban .btn{background:rgba(255,255,255,.2);color:inherit}
+.lab{font-weight:600;font-size:.85rem;color:var(--muted);margin:14px 2px 6px}
+.years{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.yr{border:2px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;background:var(--card)}
+.yr .n{font-family:Lalezar,sans-serif;font-size:2rem;line-height:1.1;display:block}
+.yr small{font-size:.74rem;color:var(--muted)}
+.yr.on{background:var(--accent);border-color:var(--accent);color:var(--on)}
+.yr.on small{color:inherit;opacity:.85}
+.seg{display:flex;border:2px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.seg a{flex:1;text-align:center;padding:9px;font-weight:600;font-size:.9rem}
+.seg a.on{background:var(--accent);color:var(--on)}
+.crs{display:block;background:var(--card);border:1px solid var(--line);border-inline-start:8px solid var(--accent);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.crs:hover{border-color:var(--accent)}
+.crs b{font-size:1.05rem}
+.crs small{color:var(--muted);display:block;font-size:.8rem}
+.bar-p{height:5px;border-radius:9px;background:var(--soft);margin-top:10px;overflow:hidden}
+.bar-p i{display:block;height:100%;background:var(--accent)}
+h2.sec{font-size:1.5rem;margin:6px 2px 12px}
+details.s{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+details.s>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:13px 14px;cursor:pointer;font-weight:600}
+details.s>summary::-webkit-details-marker{display:none}
+details.s>summary::before{content:"";width:8px;height:8px;border-inline-end:3px solid var(--accent);border-bottom:3px solid var(--accent);transform:rotate(45deg);transition:transform .2s;margin:0 4px 4px}
+details.s:not([open])>summary::before{transform:rotate(135deg);margin-top:4px}
+details.s>summary span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+details.s>summary em{font-style:normal;font-weight:400;font-size:.78rem;color:var(--muted)}
+.lk{display:flex;align-items:center;gap:8px;padding:8px 12px;margin:0 6px 4px;border-radius:10px}
+.lk:hover{background:var(--soft)}
+.lk>a{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.94rem}
+.lk .m{font-size:.72rem;color:var(--muted);display:block}
+.ck{width:24px;height:24px;border-radius:50%;border:2px solid var(--muted);flex:none;display:grid;place-items:center;font-size:.75rem;color:transparent}
+.ck.on{background:var(--accent);border-color:var(--accent);color:var(--on)}
+.lk.done>a{color:var(--muted);text-decoration:line-through}
+.sm{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;color:var(--muted);font-size:.9rem}
+.sm:hover{background:var(--soft);color:var(--ink)}
+.sm.fav{color:#f43f5e}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+.ring{width:54px;height:54px;position:relative;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-size:.72rem;font-weight:600}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px}
+.toast{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:.88rem;z-index:99}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:0 0 30px}
+.adm{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.adm h3{font-size:1rem;margin-bottom:10px}
+.fr{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:8px}
+textarea.inp{min-height:90px;resize:vertical}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row>.grow{flex:1}
+.sub{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <button class="ib" id="back" title="رجوع" aria-label="رجوع">➜</button>
+    <img class="logo" id="logo" src="logo-192.png" alt="شعار كلية الهندسة جامعة دمنهور" width="44" height="44">
+    <div class="ttl disp" id="ttl">مكتبة هندسة دمنهور</div>
+    <button class="ib" id="dark" title="الوضع الليلي" aria-label="الوضع الليلي">🌓</button>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+<main>
+  <section class="search" aria-label="بحث المحتوى">
+    <div class="row">
+      <input type="search" id="q" placeholder="ابحث عن مادة أو محاضرة..." autocomplete="off">
+      <button class="btn" id="ftog" aria-expanded="false">فلاتر</button>
+    </div>
+    <div class="filters" id="filters">
+      <select id="f-dept"></select>
+      <select id="f-year"></select>
+      <select id="f-term"></select>
+    </div>
+    <div class="hint" id="hint" hidden>اكتب حرفين على الأقل.</div>
+    <div class="res" id="res"></div>
+  </section>
+  <div id="app"></div>
+</main>
+<footer>بيتحدّث أول بأول · <a href="#/admin" style="text-decoration:underline">إدارة</a></footer>
+
+<script type="module">
+import {firebaseConfig,SITE_NAME,DEPTS,YEARS,TERMS,DEFAULT_SECTIONS} from "./config.js";
+
+/* ============ بيانات ============ */
+const LIVE = firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith("PASTE");
+let courses = [], fb = null, user = null;
+
+const uid = () => Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-4);
+const DEMO = [
+  {id:"demo1",dept:"comm",year:"1",term:"1",name:"Math 3",sections:[
+    {id:"a",title:"محاضرات",links:[{id:"l1",title:"محاضرة 1",url:"https://youtu.be/",addedAt:Date.now()-1e8},{id:"l2",title:"محاضرة 2",url:"https://drive.google.com/",addedAt:Date.now()-5e7}]},
+    {id:"b",title:"شيتات",links:[{id:"l3",title:"شيت 1",url:"https://example.com/sheet.pdf",addedAt:Date.now()}]}]},
+  {id:"demo2",dept:"prep",year:"1",term:"1",name:"فيزياء 1",sections:[{id:"c",title:"محاضرات",links:[{id:"l4",title:"المحاضرة الأولى",url:"https://drive.google.com/",addedAt:Date.now()-2e8}]}]}
+];
+
+function ls(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+const S = {done:ls("em_done",{}), fav:ls("em_fav",{})};
+
+async function boot(){
+  if(!LIVE){ courses = DEMO; route(); return; }
+  courses = ls("em_cache",[]); route();
+  const [{initializeApp},{getFirestore,collection,onSnapshot,addDoc,updateDoc,deleteDoc,doc},{getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged}] = await Promise.all([
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+    import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")]);
+  const app = initializeApp(firebaseConfig), db = getFirestore(app), auth = getAuth(app);
+  fb = {db,auth,addDoc,updateDoc,deleteDoc,doc,collection,signInWithEmailAndPassword,signOut};
+  onAuthStateChanged(auth,u=>{user=u;if(isAdminRoute())route()});
+  onSnapshot(collection(db,"courses"),snap=>{
+    courses = snap.docs.map(d=>({id:d.id,...d.data()}));
+    sv("em_cache",courses); route();
+  },err=>{console.error(err);toast("مش قادر أحمّل المواد دلوقتي")});
+}
+
+/* ============ أدوات ============ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl = u => /^https?:\/\//i.test(u) ? u : "#";
+const dept = id => DEPTS.find(d=>d.id===id);
+const ar = n => Number(n).toLocaleString("ar-EG");
+const linksOf = c => (c.sections||[]).flatMap(s=>(s.links||[]).map(l=>({...l,section:s.title,course:c})));
+const nLinks = c => linksOf(c).length;
+const prog = c => {const a=linksOf(c);return {done:a.filter(l=>S.done[l.id]).length,total:a.length}};
+function icon(u){u=u.toLowerCase();return /youtu/.test(u)?"▶️":/drive\.google|docs\.google/.test(u)?"📁":/\.pdf(\?|$)/.test(u)?"📄":"🔗"}
+function toast(t){const e=document.createElement("div");e.className="toast";e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),1800)}
+const isAdminRoute = () => location.hash.startsWith("#/admin");
+const ring = (d,t) => {const p=t?d/t:0;return `<div class="ring" style="color:var(--on)"><svg width="54" height="54" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-width="3.5"/><circle cx="18" cy="18" r="15.9" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="${(p*100).toFixed(1)} 100"/></svg><span>${ar(d)}/${ar(t)}</span></div>`};
+
+/* لون القسم بيلوّن الموقع كله */
+function setAccent(d){
+  const r=document.documentElement.style;
+  if(d){r.setProperty("--accent",d.color);r.setProperty("--on",d.on)}
+  else{r.removeProperty("--accent");r.removeProperty("--on")}
+  document.querySelector('meta[name=theme-color]').setAttribute("content",d?d.color:"#12141c");
+}
+
+/* ============ العرض ============ */
+function setTabs(active){
+  const t=[["#/","الرئيسية"],["#/latest","آخر الإضافات"],["#/fav","المفضلة"]];
+  $("#tabs").innerHTML=t.map(([h,n])=>`<a href="${h}" class="${active===h?"on":""}">${n}</a>`).join("");
+}
+function linkRow(l,showCourse){
+  const on=S.done[l.id], f=S.fav[l.id];
+  return `<div class="lk ${on?"done":""}">
+    <button class="ck ${on?"on":""}" data-act="done" data-id="${esc(l.id)}" aria-label="علّم إنك خلصته">✓</button>
+    <span>${icon(l.url)}</span>
+    <a href="${esc(safeUrl(l.url))}" target="_blank" rel="noopener noreferrer">${esc(l.title)}${showCourse?`<span class="m">${esc(l.course.name)} · ${esc(l.section)}</span>`:""}</a>
+    <button class="sm" data-act="copy" data-url="${esc(l.url)}" title="نسخ اللينك" aria-label="نسخ اللينك">⧉</button>
+    <button class="sm ${f?"fav":""}" data-act="fav" data-id="${esc(l.id)}" title="المفضلة" aria-label="المفضلة">${f?"♥":"♡"}</button>
+  </div>`;
+}
+
+function home(){
+  setAccent(null);setTabs("#/");$("#ttl").textContent=SITE_NAME;
+  $("#app").innerHTML=`<section class="hero2"><h1 class="disp">كل محاضرات<br>دفعتك في مكان واحد</h1><p>اختار قسمك، وافتح فرقتك والترم، وابدأ المذاكرة.</p></section>
+  <div class="blocks">${DEPTS.map(d=>{
+    const cs=courses.filter(c=>c.dept===d.id);
+    return `<a class="blk" href="#/d/${d.id}" style="--c:${d.color};--o:${d.on}"><span class="wm">${esc(d.code||"")}</span><b>${esc(d.name)}</b><small>${ar(cs.length)} مادة · ${ar(cs.reduce((a,c)=>a+nLinks(c),0))} رابط</small></a>`}).join("")}</div>`;
+}
+
+function deptView(id,y,t){
+  const d=dept(id); if(!d) return home();
+  const yrs=YEARS.filter(a=>!d.years||d.years.includes(a.id));
+  if(!yrs.some(a=>a.id===y)) y=yrs[0].id;
+  t=t||"1"; setAccent(d);setTabs("");$("#ttl").textContent=d.name;
+  const cs=courses.filter(c=>c.dept===id&&c.year===y&&c.term===t);
+  $("#app").innerHTML=`<div class="ban"><h1 class="disp">${esc(d.name)}</h1><p>${ar(courses.filter(c=>c.dept===id).length)} مادة في القسم</p></div>
+  ${yrs.length>1?`<div class="lab">الفرقة</div><div class="years">${yrs.map(a=>`<a class="yr ${a.id===y?"on":""}" href="#/d/${id}/${a.id}/${t}"><span class="n">${ar(a.id)}</span><small>${esc(a.name.split(" / ")[1]?"مستوى "+ar(a.name.split(" / ")[1]):"")}</small></a>`).join("")}</div>`:""}
+  <div class="lab">الترم</div><div class="seg">${TERMS.map(a=>`<a class="${a.id===t?"on":""}" href="#/d/${id}/${y}/${a.id}">${a.name}</a>`).join("")}</div>
+  <div class="lab">المواد</div>
+  ${cs.length?cs.map(c=>{const p=prog(c);return `<a class="crs" href="#/c/${encodeURIComponent(c.id)}"><b>${esc(c.name)}</b><small>${ar((c.sections||[]).filter(s=>(s.links||[]).length).length)} قسم · ${ar(p.total)} رابط</small><div class="bar-p"><i style="width:${p.total?p.done/p.total*100:0}%"></i></div></a>`}).join(""):`<div class="empty">مفيش مواد في الفرقة والترم ده لسه.</div>`}`;
+}
+
+function courseView(id){
+  const c=courses.find(x=>x.id===id);
+  if(!c){setAccent(null);$("#app").innerHTML=`<div class="empty">المادة مش موجودة.</div>`;return}
+  const d=dept(c.dept); setAccent(d);setTabs("");$("#ttl").textContent=c.name;
+  const p=prog(c), secs=(c.sections||[]).filter(s=>(s.links||[]).length);
+  $("#app").innerHTML=`<div class="ban"><h1 class="disp">${esc(c.name)}</h1><p>${esc(d?d.name:"")} · ${esc((YEARS.find(y=>y.id===c.year)||{}).name||"")} · ${esc((TERMS.find(t=>t.id===c.term)||{}).name||"")}</p>
+    <div class="stats"><span>${ar(secs.length)} قسم</span><span>${ar(p.total)} رابط</span>${ring(p.done,p.total)}<button class="btn" data-act="reset" data-id="${esc(c.id)}">مسح التقدم</button></div></div>
+    ${secs.length?secs.map(s=>`<details class="s" open><summary><span>${esc(s.title)}</span><em>${ar(s.links.length)} رابط</em></summary>${s.links.map(l=>linkRow({...l,section:s.title,course:c})).join("")}<div style="height:6px"></div></details>`).join(""):`<div class="empty">لسه مفيش روابط في المادة دي.</div>`}`;
+}
+
+function favView(){
+  setAccent(null);setTabs("#/fav");$("#ttl").textContent="المفضلة";
+  const a=courses.flatMap(linksOf).filter(l=>S.fav[l.id]);
+  $("#app").innerHTML=a.length?`<h2 class="sec disp">المفضلة (${ar(a.length)})</h2><div class="panel">${a.map(l=>linkRow(l,true)).join("")}</div>`:`<div class="empty">اضغطي ♡ جنب أي لينك عشان يتحفظ هنا.</div>`;
+}
+function latestView(){
+  setAccent(null);setTabs("#/latest");$("#ttl").textContent="آخر الإضافات";
+  const a=courses.flatMap(linksOf).sort((x,y)=>(y.addedAt||0)-(x.addedAt||0)).slice(0,30);
+  $("#app").innerHTML=a.length?`<h2 class="sec disp">آخر ${ar(a.length)} إضافة</h2><div class="panel">${a.map(l=>linkRow(l,true)).join("")}</div>`:`<div class="empty">مفيش إضافات لسه.</div>`;
+}
+
+/* ============ لوحة الإدارة ============ */
+const opts = (arr,sel) => arr.map(a=>`<option value="${a.id}" ${a.id===sel?"selected":""}>${esc(a.name)}</option>`).join("");
+async function save(c){ await fb.updateDoc(fb.doc(fb.db,"courses",c.id),{sections:c.sections}); }
+
+function adminView(){
+  setAccent(null);setTabs("");$("#ttl").textContent="لوحة الإدارة";
+  if(!LIVE){$("#app").innerHTML=`<div class="adm"><h3>الإدارة مش شغالة</h3><p class="hint">املي بيانات Firebase في ملف config.js الأول (الخطوات في أول الملف).</p></div>`;return}
+  if(!user){
+    $("#app").innerHTML=`<form class="adm" data-form="login"><h3>تسجيل دخول الإدارة</h3>
+      <div class="fr"><input class="inp" name="email" type="email" placeholder="الإيميل" required autocomplete="username"><input class="inp" name="pass" type="password" placeholder="الباسورد" required autocomplete="current-password"></div>
+      <button class="btn pri">دخول</button></form>`;return}
+  const open=new Set([...document.querySelectorAll("details[data-cid][open]")].map(e=>e.dataset.cid));
+  $("#app").innerHTML=`<div class="row" style="margin-bottom:12px"><b class="grow">أهلاً ${esc(user.email)}</b><button class="btn" data-act="logout">خروج</button></div>
+  <form class="adm" data-form="newcourse"><h3>مادة جديدة</h3>
+    <div class="fr"><select name="dept">${opts(DEPTS)}</select><select name="year">${opts(YEARS)}</select><select name="term">${opts(TERMS)}</select></div>
+    <div class="row"><input class="inp grow" name="name" placeholder="اسم المادة" required><button class="btn pri">إضافة المادة</button></div>
+    <p class="hint">بتتعمل مع السكاشن الجاهزة (${DEFAULT_SECTIONS.join("، ")}) وتقدري تغيريها بعد كده. الاعدادي بيظهر فيه الفرقة الأولى بس.</p></form>
+  <h2 class="sec disp">المواد (${ar(courses.length)})</h2>
+  ${courses.slice().sort((a,b)=>(a.dept+a.year+a.term+a.name).localeCompare(b.dept+b.year+b.term+b.name)).map(c=>`
+   <details class="s" data-cid="${esc(c.id)}" ${open.has(c.id)?"open":""}><summary><span>${esc(c.name)}</span><em>${esc((dept(c.dept)||{}).name||"")} · ف${esc(c.year)} ت${esc(c.term)}</em></summary>
+    <div style="padding:0 14px 14px">
+     ${(c.sections||[]).map((s,i)=>`<div class="sub"><div class="row"><b class="grow">${esc(s.title)} (${(s.links||[]).length})</b><button class="btn del" data-act="delsec" data-id="${esc(c.id)}" data-i="${i}">حذف القسم</button></div>
+       ${(s.links||[]).map(l=>`<div class="lk"><a href="${esc(safeUrl(l.url))}" target="_blank" rel="noopener">${esc(l.title)}</a><button class="sm" data-act="dellink" data-id="${esc(c.id)}" data-i="${i}" data-l="${esc(l.id)}" aria-label="حذف">✕</button></div>`).join("")}
+       <form data-form="addlinks" data-id="${esc(c.id)}" data-i="${i}"><textarea class="inp" name="t" placeholder="كل سطر: العنوان | اللينك&#10;محاضرة 1 | https://..." required></textarea><button class="btn pri" style="margin-top:6px">إضافة الروابط</button></form></div>`).join("")}
+     <form class="sub row" data-form="addsec" data-id="${esc(c.id)}"><input class="inp grow" name="t" placeholder="قسم جديد (مثلاً: مراجعة نهائية)" required><button class="btn">إضافة قسم</button></form>
+     <div class="sub"><button class="btn del" data-act="delcourse" data-id="${esc(c.id)}">حذف المادة كلها</button></div>
+    </div></details>`).join("")}`;
+}
+
+/* ============ البحث ============ */
+function fillFilters(){
+  $("#f-dept").innerHTML=`<option value="">كل الأقسام</option>`+opts(DEPTS);
+  $("#f-year").innerHTML=`<option value="">كل الفرق</option>`+opts(YEARS);
+  $("#f-term").innerHTML=`<option value="">الترمان</option>`+opts(TERMS);
+}
+function search(){
+  const q=$("#q").value.trim().toLowerCase(), fd=$("#f-dept").value, fy=$("#f-year").value, ft=$("#f-term").value;
+  $("#hint").hidden = !(q.length===1);
+  const box=$("#res");
+  if(q.length<2){box.innerHTML="";return}
+  const cs=courses.filter(c=>(!fd||c.dept===fd)&&(!fy||c.year===fy)&&(!ft||c.term===ft));
+  const out=[];
+  cs.forEach(c=>{
+    const d=dept(c.dept)||{};
+    if(c.name.toLowerCase().includes(q)) out.push(`<a class="crs" style="--accent:${d.color||"var(--ink)"}" href="#/c/${encodeURIComponent(c.id)}"><b>${esc(c.name)}</b><small>${esc(d.name||"")}</small></a>`);
+    linksOf(c).forEach(l=>{ if((l.title+" "+l.section).toLowerCase().includes(q)) out.push(`<div class="panel">${linkRow(l,true)}</div>`) });
+  });
+  box.innerHTML=out.length?out.slice(0,40).join(""):`<div class="empty">مفيش نتايج.</div>`;
+}
+
+/* ============ الراوتر ============ */
+function route(){
+  const p=location.hash.replace(/^#\/?/,"").split("/").map(decodeURIComponent);
+  const [v,a,b,c]=p;
+  if(v==="d") deptView(a,b,c);
+  else if(v==="c") courseView(a);
+  else if(v==="fav") favView();
+  else if(v==="latest") latestView();
+  else if(v==="admin") adminView();
+  else home();
+  search();
+}
+addEventListener("hashchange",()=>{route();scrollTo(0,0)});
+
+/* ============ أحداث ============ */
+document.addEventListener("click",async e=>{
+  const t=e.target.closest("[data-act]"); if(!t) return;
+  const act=t.dataset.act, id=t.dataset.id;
+  if(act==="done"){S.done[id]?delete S.done[id]:S.done[id]=1;sv("em_done",S.done);route()}
+  else if(act==="fav"){S.fav[id]?delete S.fav[id]:S.fav[id]=1;sv("em_fav",S.fav);route()}
+  else if(act==="copy"){try{await navigator.clipboard.writeText(t.dataset.url);toast("اتنسخ ✓")}catch(_){toast("مقدرتش أنسخ")}}
+  else if(act==="reset"){const c=courses.find(x=>x.id===id);if(c&&confirm("تمسحي تقدمك في المادة دي؟")){linksOf(c).forEach(l=>delete S.done[l.id]);sv("em_done",S.done);route()}}
+  else if(act==="logout"){await fb.signOut(fb.auth)}
+  else if(act==="delcourse"){if(confirm("حذف المادة وكل روابطها؟")){await fb.deleteDoc(fb.doc(fb.db,"courses",id))}}
+  else if(act==="delsec"){const c=courses.find(x=>x.id===id);if(c&&confirm("حذف القسم؟")){c.sections.splice(+t.dataset.i,1);await save(c)}}
+  else if(act==="dellink"){const c=courses.find(x=>x.id===id),s=c.sections[+t.dataset.i];s.links=s.links.filter(l=>l.id!==t.dataset.l);await save(c)}
+});
+
+document.addEventListener("submit",async e=>{
+  const f=e.target.closest("[data-form]"); if(!f) return; e.preventDefault();
+  const k=f.dataset.form, fd=new FormData(f), id=f.dataset.id;
+  try{
+    if(k==="login"){await fb.signInWithEmailAndPassword(fb.auth,fd.get("email"),fd.get("pass"))}
+    else if(k==="newcourse"){
+      await fb.addDoc(fb.collection(fb.db,"courses"),{dept:fd.get("dept"),year:fd.get("year"),term:fd.get("term"),name:fd.get("name").trim(),
+        sections:DEFAULT_SECTIONS.map(t=>({id:uid(),title:t,links:[]})),createdAt:Date.now()});
+      toast("اتضافت المادة ✓");
+    }
+    else if(k==="addsec"){const c=courses.find(x=>x.id===id);c.sections=[...(c.sections||[]),{id:uid(),title:fd.get("t").trim(),links:[]}];await save(c);toast("اتضاف القسم ✓")}
+    else if(k==="addlinks"){
+      const c=courses.find(x=>x.id===id), s=c.sections[+f.dataset.i];
+      const add=fd.get("t").split("\n").map(r=>r.trim()).filter(Boolean).map(r=>{
+        const i=r.lastIndexOf("|"); const title=i>-1?r.slice(0,i).trim():r, url=(i>-1?r.slice(i+1):r).trim();
+        return /^https?:\/\//i.test(url)?{id:uid(),title:i>-1?title:url,url,addedAt:Date.now()}:null}).filter(Boolean);
+      if(!add.length){toast("الصيغة: العنوان | اللينك");return}
+      s.links=[...(s.links||[]),...add]; await save(c); toast(`اتضاف ${add.length} رابط ✓`);
+    }
+  }catch(err){console.error(err);toast(err.code==="permission-denied"?"الإيميل ده مش مسموح له يكتب":"حصلت مشكلة: "+(err.code||err.message))}
+});
+
+$("#q").addEventListener("input",search);
+for(const s of ["#f-dept","#f-year","#f-term"]) $(s).addEventListener("change",search);
+$("#ftog").addEventListener("click",e=>{const o=$("#filters").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)});
+$("#dark").addEventListener("click",()=>{const d=document.documentElement.classList.toggle("dark");try{localStorage.setItem("em_dark",d?"1":"0")}catch(e){}});
+$("#back").addEventListener("click",()=>{ if(location.hash&&location.hash!=="#/") history.back(); else location.hash="#/" });
+
+fillFilters();
+boot();
+</script>
+</body>
+</html>
